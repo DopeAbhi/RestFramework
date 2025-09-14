@@ -1,0 +1,77 @@
+{
+
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "msg_code": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "tokenDetails": {
+          "type": "object",
+          "properties": {
+            "token": { "type": "string" },
+            "refreshToken": {
+              "type": "object",
+              "properties": {
+                "expireAt": { "type": "string", "format": "date-time" },
+                "tokenString": { "type": "string" }
+              },
+              "required": ["expireAt", "tokenString"]
+            }
+          },
+          "required": ["token", "refreshToken"]
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "userStamp": { "type": "string" },
+              "accountSummaries": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer" },
+                    "code": { "type": "string" },
+                    "name": { "type": "string" },
+                    "accountStamp": { "type": "string" },
+                    "brandName": { "type": "string" },
+                    "logoUrl": { "type": "string", "format": "uri" },
+                    "isDefault": { "type": "boolean" },
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer" },
+                          "code": { "type": "string" },
+                          "name": { "type": "string" },
+                          "productStamp": { "type": "string" },
+                          "subDomainUrl": { "type": "string", "format": "uri" },
+                          "validity": { "type": "string", "format": "date-time" },
+                          "key": { "type": "string" }
+                        },
+                        "required": ["id", "code", "name", "productStamp", "subDomainUrl", "validity", "key"]
+                      }
+                    }
+                  },
+                  "required": ["id", "code", "name", "accountStamp", "brandName", "logoUrl", "isDefault", "products"]
+                }
+              }
+            },
+            "required": ["userStamp", "accountSummaries"]
+          }
+        }
+      },
+      "required": ["tokenDetails", "subscription"]
+    }
+  },
+  "required": ["msg_code", "data"]
+}
+
+
